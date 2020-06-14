@@ -1,0 +1,29 @@
+{
+  "name": "calculator-js-jasmine",
+  "version": "1.0.0",
+  "description": "HTML, CSS and JavaScript to create the calculator, and we will use the Jasmine test library to test it.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loyannec/calculator-js-jasmine.git"
+  },
+  "keywords": [
+    "javascript",
+    "node",
+    "html",
+    "css",
+    "jasmine"
+  ],
+  "author": "Loyanne Cristine Repolho",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/loyannec/calculator-js-jasmine/issues"
+  },
+  "homepage": "https://github.com/loyannec/calculator-js-jasmine#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
