@@ -10,12 +10,17 @@ class Calculator {
     }
 
     /*
+    From these functions:
     All the operations that the calculator class can come perform according to each button.
     */
-    clear() {                           // clear out different variables
+    /*
+    Clear out different variables
+    */
+    clear() {
         this.currentOperand = '';
         this.previousOperand = '';
-        this.operation = undefined;     // since they dont have any operation selected
+        // since they dont have any operation selected
+        this.operation = undefined;
     }
 
     /*
@@ -27,8 +32,9 @@ class Calculator {
 
     /*
     All the inner workings of how to set all the values inside of the calculator (appendNumber and chooseOperation).
+    Going to happen every single time a user clicks on a number to add the screen
     */
-    appendNumber(number) {              // going to happen every single time a user clicks on a number to add the screen
+    appendNumber(number) {
         if (number === '.' && this.currentOperand.includes('.')) return;
         if (number === '.' && this.currentOperand === '') this.currentOperand = '0';
         // convert to a string just in case it's a number, also appending to the end,
@@ -42,32 +48,42 @@ class Calculator {
     chooseOperation(operation) {
         if (this.currentOperand === '' && operation !== '-') {
             this.operation = undefined;
-            return;         // if the actual operator is empty this ignore, just return
+            // if the actual operator is empty this ignore, just return
+            return;
         }
-        if (this.currentOperand === '' && operation === '-') {               // when if the data is empty it saves only the operation
+        // when if the data is empty it saves only the operation
+        if (this.currentOperand === '' && operation === '-') {
             this.operation = operation;
             return;
         }
         if (this.previousOperand !== '') {
-            this.compute()              // will update all the variables as need
+            // will update all the variables as need
+            this.compute()
         // if there is no operator previously and the save operation is for subtraction, it will add a (-) to the current operand
         } else if (this.operation === '-') {
             this.currentOperand = '-' + this.currentOperand;
         }
-        this.operation = operation;      // the calculator will know what operation it needs to use when it computes the value
-        this.previousOperand = this.currentOperand;        // done the typing the current number so recycle that over to this previous operand
-        this.currentOperand = '';        // will to be equal to an empty string, essentially just to clear out that value of the current operand
+        // the calculator will know what operation it needs to use when it computes the value
+        this.operation = operation;
+        // done the typing the current number so recycle that over to this previous operand
+        this.previousOperand = this.currentOperand;
+        // will to be equal to an empty string, essentially just to clear out that value of the current operand
+        this.currentOperand = '';
     }
 
     /*
     Going to take values inside of the calculator and compute a single value for what need to display on the calculator
     */
     compute() {
+        // result
         let computation;
+        // convert the string to a number
         const prev = parseFloat(this.previousOperand);
         const current = parseFloat(this.currentOperand);
         if (isNaN(prev) || isNaN(current)) return;
+        // if statments chained
         switch(this.operation) {
+            // ifs
             case '+':
                 computation = prev + current
                 break
@@ -80,6 +96,7 @@ class Calculator {
             case '÷':
                 computation = prev / current
                 break
+            // else
             default:
                 return
         }
@@ -116,7 +133,8 @@ class Calculator {
     */
     updateDisplay() {
         if (isNaN(this.currentOperand) || !isFinite(this.currentOperand)) {
-            this.currentOperandTextElement.innerText = 'Error';            // displays a message when trying to divide by 0
+            // displays a message when trying to divide by 0
+            this.currentOperandTextElement.innerText = 'Error';
         } else {
             this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand);
         }
