@@ -91,8 +91,11 @@ class Calculator {
     }
 
     updateDisplay() {                   // going to update the values inside of output and with the operations all defined
-        const number = this.getDisplayNumber(this.currentOperand);
-        this.currentOperandTextElement.innerText = isNaN(number) ? 'Error' : number;
+        if (isNaN(this.currentOperand) || !isFinite(this.currentOperand)) {
+            this.currentOperandTextElement.innerText = 'Error';            // displays a message when trying to divide by 0
+        } else {
+            this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand);
+        }
         if (this.operation != null) {
             this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;                   // will be a string that has the operation appended to the end of it
         } else {
