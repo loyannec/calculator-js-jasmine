@@ -26,17 +26,27 @@ class Calculator {
     All the inner workings of how to set all the values inside of the calculator (appendNumber and chooseOperation).
     */
     appendNumber(number) {              // going to happen every single time a user clicks on a number to add the screen
-        if (number === '.' && this.currentOperand.includes('.')) return
-        if (number === '.' && this.currentOperand === '') number = '0.';
+        if (number === '.' && this.currentOperand.includes('.')) return;
+        if (number === '.' && this.currentOperand === '') this.currentOperand = '0';
         // convert to a string just in case it's a number, also appending to the end,
         // because js will try to add as actual numbers it will try to do 1+1=2 instead of 1+1=11
         this.currentOperand = this.currentOperand.toString() + number.toString();
     }
 
     chooseOperation(operation) {        // going to happen anytime a user clicks on one of the operations that the user selected
-        if (this.currentOperand === '') return
+        if (this.currentOperand === '' && operation !== '-') {
+            this.operation = undefined;
+            return;         // if the actual operator is empty this ignore, just return
+        }
+        if (this.currentOperand === '' && operation === '-') {               // when if the data is empty it saves only the operation
+            this.operation = operation;
+            return;
+        }
         if (this.previousOperand !== '') {
             this.compute()              // will update all the variables as need
+        // if there is no operator previously and the save operation is for subtraction, it will add a (-) to the current operand
+        } else if (this.operation === '-') {
+            this.currentOperand = '-' + this.currentOperand;
         }
         this.operation = operation;      // the calculator will know what operation it needs to use when it computes the value
         this.previousOperand = this.currentOperand;        // done the typing the current number so recycle that over to this previous operand
@@ -47,7 +57,7 @@ class Calculator {
         let computation;
         const prev = parseFloat(this.previousOperand);
         const current = parseFloat(this.currentOperand);
-        if (isNaN(prev) || isNaN(current)) return
+        if (isNaN(prev) || isNaN(current)) return;
         switch(this.operation) {
             case '+':
                 computation = prev + current
@@ -76,8 +86,8 @@ class Calculator {
         */
         const stringNumber = number.toString();
         const integerDigits = parseFloat(stringNumber.split('.')[0]);
-        const decimalDigits = stringNumber.split('.')[1]
-        let integerDisplay
+        const decimalDigits = stringNumber.split('.')[1];
+        let integerDisplay;
         // essentially this will happen anytime someone inputs nothing on the screen or inputs just a decimal place
         if (isNaN(integerDigits)) {
             integerDisplay = ''
@@ -96,7 +106,7 @@ class Calculator {
         } else {
             this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand);
         }
-        if (this.operation != null) {
+        if (this.operation != null && this.previousOperand !== '') {
             this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;                   // will be a string that has the operation appended to the end of it
         } else {
             this.previousOperandTextElement.innerText = '';
