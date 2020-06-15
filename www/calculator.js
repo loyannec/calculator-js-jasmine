@@ -27,6 +27,7 @@ class Calculator {
     */
     appendNumber(number) {              // going to happen every single time a user clicks on a number to add the screen
         if (number === '.' && this.currentOperand.includes('.')) return
+        if (number === '.' && this.currentOperand === '') number = '0.';
         // convert to a string just in case it's a number, also appending to the end,
         // because js will try to add as actual numbers it will try to do 1+1=2 instead of 1+1=11
         this.currentOperand = this.currentOperand.toString() + number.toString();
@@ -90,7 +91,8 @@ class Calculator {
     }
 
     updateDisplay() {                   // going to update the values inside of output and with the operations all defined
-        this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand)
+        const number = this.getDisplayNumber(this.currentOperand);
+        this.currentOperandTextElement.innerText = isNaN(number) ? 'Error' : number;
         if (this.operation != null) {
             this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;                   // will be a string that has the operation appended to the end of it
         } else {
