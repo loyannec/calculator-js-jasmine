@@ -1,4 +1,5 @@
-*, *::before, *::after {                   /* Select all of elements including before elements and after elements */
+/* Select all of elements including before elements and after elements */
+*, *::before, *::after {
     box-sizing: border-box;
     font-family: 'Courier New', Courier, monospace, sans-serif;
     font-weight: normal;
@@ -31,11 +32,13 @@ body {
     background-color: rgba(255, 255, 255, .9);
 }
 
-.span-two {                             /* Includind buttons in grid column */
+/* Includind buttons in grid column */
+.span-two {
     grid-column: span 2;
 }
 
-.output {                               /* Including a blackish section in order */
+/* Including a blackish section in order */
+.output {
     grid-column: 1 / -1;
     background-color: rgba(0, 0, 0, .75);
     display: flex;
@@ -55,4 +58,8 @@ body {
 .output .current-operand {
     color: rgba(255, 255, 255, .75);
     font-size: 2.5rem;
+}
+
+p {
+    text-align: center;
 }
