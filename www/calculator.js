@@ -18,7 +18,10 @@ class Calculator {
         this.operation = undefined;     // since they dont have any operation selected
     }
 
-    delete() {                          // removing a single number
+    /*
+    Removing a single number
+    */
+    delete() {
         this.currentOperand = this.currentOperand.toString().slice(0, -1);
     }
 
@@ -33,7 +36,10 @@ class Calculator {
         this.currentOperand = this.currentOperand.toString() + number.toString();
     }
 
-    chooseOperation(operation) {        // going to happen anytime a user clicks on one of the operations that the user selected
+    /*
+    Going to happen anytime a user clicks on one of the operations that the user selected
+    */
+    chooseOperation(operation) {
         if (this.currentOperand === '' && operation !== '-') {
             this.operation = undefined;
             return;         // if the actual operator is empty this ignore, just return
@@ -53,7 +59,10 @@ class Calculator {
         this.currentOperand = '';        // will to be equal to an empty string, essentially just to clear out that value of the current operand
     }
 
-    compute() {                         // going to take values inside of the calculator and compute a single value for what need to display on the calculator
+    /*
+    Going to take values inside of the calculator and compute a single value for what need to display on the calculator
+    */
+    compute() {
         let computation;
         const prev = parseFloat(this.previousOperand);
         const current = parseFloat(this.currentOperand);
@@ -95,19 +104,25 @@ class Calculator {
             integerDisplay = integerDigits.toLocaleString('en', { maximumFractionDigits: 0 });
         } if (decimalDigits != null) {
             return `${integerDisplay}.${decimalDigits}`;
-        } else {                        // will go to set this equal to an empty string, saving that and doing a calculation just with a simple one-click equal it'll empty out that previous operand value and leave only with our current operand value
+        // will go to set this equal to an empty string, saving that and doing a calculation just with a simple one-click
+        // equal it'll empty out that previous operand value and leave only with our current operand value
+        } else {
             return integerDisplay;
         }
     }
 
-    updateDisplay() {                   // going to update the values inside of output and with the operations all defined
+    /*
+    Going to update the values inside of output and with the operations all defined
+    */
+    updateDisplay() {
         if (isNaN(this.currentOperand) || !isFinite(this.currentOperand)) {
             this.currentOperandTextElement.innerText = 'Error';            // displays a message when trying to divide by 0
         } else {
             this.currentOperandTextElement.innerText = this.getDisplayNumber(this.currentOperand);
         }
         if (this.operation != null && this.previousOperand !== '') {
-            this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;                   // will be a string that has the operation appended to the end of it
+            // will be a string that has the operation appended to the end of it
+            this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;
         } else {
             this.previousOperandTextElement.innerText = '';
         }
